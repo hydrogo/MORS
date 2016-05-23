@@ -1,4 +1,4 @@
-![](https://yadi.sk/i/WwV3c58UrurWq)
+![](mors_ico_small.png?raw=true)
 # MORS
 modern hydrological modeling and forecasting system
 
