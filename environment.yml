@@ -1,4 +1,4 @@
-name: root
+name: binder
 dependencies:
 - alabaster=0.7.7=py35_0
 - anaconda-client=1.4.0=py35_0
