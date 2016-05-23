@@ -40,14 +40,14 @@ def simulation(data, params=[2.5, 250, -0.4, 1.6, 0.6, 0.055, 0.040, 1, 1]):
     soilbox[0] = 140 #initial condition for soilbox
         #Free water in the system
     fwater = np.zeros(n)
-    fwater[0] = 0 #initial condirion for free water amount
+    fwater[0] = 0 #initial condition for free water amount
         #Surface runoff box
     sw1 = np.zeros(n)
     sw1[0] = 0 #initial condition for surface water box
         #Groundwater runoff box
     gw1 = np.zeros(n)
     gw1[0] = 0 #initial condition for groundwater box
-        #PQ?
+        #Recharge
     pq = np.zeros(n)
         #Effective evaporation
     ea = np.zeros(n) #effektiv evapo
@@ -57,14 +57,14 @@ def simulation(data, params=[2.5, 250, -0.4, 1.6, 0.6, 0.055, 0.040, 1, 1]):
     q = np.zeros(n)
     
     for i in range(1, n):
-        if temp[i]<Tt: #will snow form?
+        if temp[i]<Tt: #check snow formation or not
             snowbox[i]=snowbox[i-1]+prec[i]
-            fwater[i]=0 #no melt water
+            fwater[i]=0 #there are no melt water
         else: #temp>Tt
             snowbox[i] = np.array([snowbox[i-1]-gd*(temp[i]-Tt), 0]).max()
             fwater[i] = prec[i] + np.array([snowbox[i-1], gd*(temp[i]-Tt)]).min() - np.array([0, fwater[i-1]]).max()*0.1
     
-        #evapo control
+        #evaporation control flow
         if (temp[i]>0) & (fwater[i]>0) == True:
             eaP[i] = k*evap[i-1]*temp[i]
 
@@ -77,7 +77,7 @@ def simulation(data, params=[2.5, 250, -0.4, 1.6, 0.6, 0.055, 0.040, 1, 1]):
 
         soilbox[i] = soilbox[i-1] + fwater[i] - pq[i] - ea[i]
 
-        if sw1[i] < Tk1: #threshold effect
+        if sw1[i] < Tk1: #threshold effect conditions
             sw1[i] = sw1[i-1] + pq[i] - np.array([0, sw1[i-1]]).max()*0.08
         else:
             sw1[i] = sw1[i-1] + pq[i] - np.array([0, sw1[i-1]]).max()*k0
