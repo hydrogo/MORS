@@ -209,6 +209,21 @@ def simulation(data, params):
 
     return Q
 
+def bounds():
+    '''
+    GR4J params:
+    X1 : production store capacity (X1 - PROD) [mm]
+        [0, 1500]
+    X2 : intercatchment exchange coefficient (X2 - CES) [mm/day]
+        [-10, 5]
+    X3 : routing store capacity (X3 - ROUT) [mm]
+        [1, 500]
+    X4 : time constant of unit hydrograph (X4 - TB) [day]
+        [0.5, 4.0]
+    '''
+    bnds = ((0, 1500), (-10, 5), (0, 500), (0.5, 4.0))
+    return bnds
+
 # import modules for interaction()
 import pandas as pd
 import sys

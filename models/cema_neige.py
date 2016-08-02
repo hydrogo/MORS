@@ -83,5 +83,15 @@ def simulation(data, params):
 
         ### Water volume to pass to the hydrological model
         PliqAndMelt[t] = Pliq + Melt
-    
+
     return PliqAndMelt
+
+def bounds():
+    '''
+    'CTG' - dimensionless weighting coefficient of the snow pack thermal state
+            [0, 1]
+    'Kf'  - day-degree rate of melting (mm/(day*celsium degree))
+            [1, 10]
+    '''
+    bnds = ((0, 1), (1, 10))
+    return bnds
